@@ -16,13 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        
-        Role::create([
-                'name' => 'admin',
-                // 'email' => 'test@example.com',
-            ]);
-        User::factory(10)->create();
+
+        $roles =[
+            ['name' => 'admin'],
+            ['name' => 'user'],
+        ];
+        foreach($roles as $role){
+            Role::create($role);
+        }
         Book::factory(50)->create();
-        
+        $users = User::factory(10)->create();
+        foreach($users as $user){
+            $user->assignRole('user');
+        }
     }
 }

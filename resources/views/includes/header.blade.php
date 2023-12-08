@@ -1,15 +1,15 @@
-<div class="bg-light border-bottom mb-3" style="height: 63px;">
-    <div class="container h-100">
+<div class="mb-3 h-100" style="box-shadow: 10px 1px 8px 0px gray;">
+    <div class="container h-100 me-auto">
         <div class="d-flex flex-row justify-content-between align-items-center h-100">
-            <a id="logo" class="px-2" href="/">Books</a>
+            <a id="logo" class="px-2 nav-link" href="/">Books</a>
             @guest
                 <div class="d-flex">
-                    <a type="button" class="px-2" href="{{ route('auth.login') }}">{{ __('Login') }}</a>
-                    |<a type="button" class="px-2" href="{{ route('auth.register') }}">{{ __('Register') }}</a>
+                    <a type="button" class="nav-link px-2" href="{{ route('auth.login') }}">{{ __('Login') }}</a>
+                    |<a type="button" class="nav-link px-2" href="{{ route('auth.register') }}">{{ __('Register') }}</a>
                 </div>
             @else
                 <div class="dropdown">
-                    <a class="dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                    <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         {{ Auth::user()->name }}
                         {{-- <span class="caret"></span> --}}

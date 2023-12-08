@@ -25,8 +25,9 @@ class AuthController extends Controller
         ]);
         $data = $request->except('password');
         $data['password'] = Hash::make($request->password);
-        User::create($data);
-        return redirect()->route('books.index')->withSuccess('Signed in');
+        $user = User::create($data);
+        $user->assignRole($request->input('role'));
+        return redirect()->route('books.index')->with('success', 'User created successfully!');
     }
     // Login view page
     public function login()

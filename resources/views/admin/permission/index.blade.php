@@ -1,6 +1,7 @@
 @extends('admin.layout.default')
 @section('title', 'Permissions')
 @section('content')
+<div class="container my-3">
     <h2>Permissions</h2>
     <div class="card my-3">
         <div class="card-header">
@@ -50,4 +51,5 @@
             </table>
         </div>
     </div>
+</div>
 @endsection

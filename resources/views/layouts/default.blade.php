@@ -10,7 +10,7 @@
         @yield('header')
     </header>
     <div class="container">
-        <div class="d-flex flex-column" id="main">
+        <div class="d-flex flex-column">
             @yield('content')
         </div>
     </div>

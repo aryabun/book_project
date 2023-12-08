@@ -1,1 +1,1 @@
-<div id="copyright" class="my-5 text-center">© Copyright</div>
+<div id="copyright" class="my-3 text-center">© Copyright</div>

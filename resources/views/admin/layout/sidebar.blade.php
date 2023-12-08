@@ -1,21 +1,21 @@
-<div class="flex-shrink-0 p-3 bg-light" style="width: 280px; min-height: 100vh;">
-    <a href="/" class="d-flex justify-content-center pb-3 mb-3 text-decoration-none border-bottom ps-0">
+<div class="d-flex flex-column text-white p-3 bg-info min-vh-100" style="width: 280px;">
+    <a href="/" class="d-flex justify-content-center pb-3 mb-3 text-decoration-none border-bottom ps-0 nav-link">
         <span class="fs-5 fw-semibold">Admin</span>
     </a>
-    <ul class="list-unstyled ps-0">
-        <li class="mb-1">
-            <a href="/" type="button" class="btn btn-toggle align-items-center rounded">
+    <ul class="nav nav-pills flex-column ps-0 text-white">
+        <li class="nav-item mb-1">
+            <a href="/" type="button" class="btn align-items-center rounded">
                 Home
             </a>
         </li>
-        <li class="mb-1">
-            <a href="{{route('admin.dashboard')}}" type="button" class="btn btn-toggle align-items-center rounded">
+        <li class="nav-item mb-1">
+            <a href="{{route('admin.dashboard')}}" type="button" class="btn align-items-center rounded">
                 Dashboard
             </a>
         </li>
-        <li class="mb-1">
+        <li class="nav-item mb-1">
             <div class="dropdown">
-                <button class="dropdown-toggle btn btn-toggle align-items-center rounded collapsed"
+                <button class="dropdown-toggle btn align-items-center rounded collapsed"
                     data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
                     Role and Permission
                 </button>
@@ -27,8 +27,8 @@
                 </div>
             </div>
         </li>
-        <li class="border-top my-3"></li>
-        <li class="mb-1">
+        <li class="nav-item border-top my-3"></li>
+        <li class="nav-item mb-1">
             <button class="dropdown-toggle btn btn-toggle align-items-center rounded collapsed"
                 data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
                 Account

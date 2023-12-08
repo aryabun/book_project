@@ -30,6 +30,7 @@
                     @if ($errors->has('password'))
                     <span class="text-danger">{{ $errors->first('password') }}</span>
                     @endif
+                    <input type="text" name="role" style="display: none;" value="user">
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3 mb-2">
