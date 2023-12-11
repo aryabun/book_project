@@ -20,12 +20,12 @@ use App\Http\Controllers\UserController;
 */
 Route::get('/', [BookController::class, 'index'])->name('books.index');
 Route::prefix('books')->group(function(){
-    Route::get('/create', [BookController::class, 'create'])->name('books.create');
+    Route::get('/create', [BookController::class, 'create'])->name('books.create')->middleware('can:create-book');
     Route::post('/store', [BookController::class, 'store'])->name('books.store');
     Route::get('/{book}', [BookController::class, 'show'])->name('books.show');
-    Route::get('/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
+    Route::get('/{book}/edit', [BookController::class, 'edit'])->name('books.edit')->middleware('can:edit-book');
     Route::patch('/{book}', [BookController::class, 'update'])->name('books.update');
-    Route::delete('/{book}', [BookController::class, 'destroy'])->name('books.destroy');
+    Route::delete('/{book}', [BookController::class, 'destroy'])->name('books.destroy')->middleware('can:delete-book');
 });
 Route::prefix('auth')->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
@@ -43,7 +43,6 @@ Route::prefix('admin')->group(function(){
     Route::prefix('roles')->group(function(){
         Route::get('/', [RoleController::class, 'index'])->name('roles.index');
         Route::post('/store', [RoleController::class, 'store'])->name('roles.store');
-        Route::get('/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
         Route::patch('/{role}', [RoleController::class, 'update'])->name('roles.update');
         Route::delete('/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
     });

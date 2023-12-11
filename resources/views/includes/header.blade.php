@@ -12,9 +12,15 @@
                     <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         {{ Auth::user()->name }}
-                        {{-- <span class="caret"></span> --}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        @can('view-admindashboard')
+                            <li>
+                                <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                    Admin Dashboard
+                                </a>
+                            </li>
+                        @endcan
                         <li>
                             <a class="dropdown-item" href="{{ route('auth.logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
