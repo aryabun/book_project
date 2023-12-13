@@ -13,4 +13,10 @@ class UserController extends Controller
 
         return view('user.index', compact('users'));
     }
+    public function edit(){
+        return view('user.index', compact('users'));
+    }
+    public function destroy(){
+        return view('user.index', compact('users'));
+    }
 }

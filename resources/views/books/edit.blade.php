@@ -19,9 +19,15 @@
         @csrf
         @method('patch')
         <div class="row mb-3">
-            <div class="col-5 border rounded">
-                <div class="d-flex flex-column h-100 m-3 justify-content-center">
-                    <input type="file" name="image" @error('image') is-invalid @enderror class="form-control">
+            <div class="col-7 border rounded">
+                <div class="d-flex flex-row h-100 m-3">
+                    <div class="d-flex flex-column">
+                        <input type="file" accept=".jpg, .jpeg, .png" id="selectImage" name="images[]"
+                            @error('images') is-invalid @enderror class="form-control" multiple>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <img id="preview" src="#" alt="your image" class="mt-3" />
+                    </div>
                 </div>
             </div>
             <div class="col">
@@ -41,6 +47,7 @@
                         value="{{ $book->isbn }}">
                 </div>
             </div>
+
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('books.index') }}">
@@ -48,3 +55,15 @@
         </a>
     </form>
 @endsection
+@push('script')
+    <script>
+        selectImage.onchange = event => {
+            preview = document.getElementById('preview');
+            preview.style.display = 'block';
+            const [file] = selectImage.files
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
+@endpush

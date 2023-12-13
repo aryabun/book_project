@@ -14,9 +14,11 @@
         @foreach ($books as $book)
             <div class="col col-3 my-3">
                 <div class="card h-100">
-                    @if ($book->image)
-                        <img class="card-img-top m-auto mt-2" src="{{ asset('storage/images/' . $book->image) }}"
-                            style="height: 50%; width: 50%;">
+                    @if ($book->images)
+                        @foreach ($book->images as $item)
+                            <img class="card-img-top m-auto mt-2" src="{{ asset('storage/images/' . $item->name) }}"
+                                style="height: 50%; width: 50%;">
+                        @endforeach
                     @else
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcSaTcPQHrUCsxJuUmSeCkG6KIKW5zp99pdw&usqp=CAU"
                             alt="" class="card-img-top m-auto mt-2" style="height: 50%; width: 50%;">

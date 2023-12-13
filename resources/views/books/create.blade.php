@@ -21,7 +21,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <input type="file" class="form-control" name="image" @error('image') is-invalid @enderror>
+                        <input type="file" class="form-control" name="images[]" @error('images') is-invalid @enderror multiple="true">
                     </div>
                     <div class="col">
                         <div class="mb-3">
@@ -34,7 +34,7 @@
                             <input type="text" name="isbn" id="isbn" class="form-control" autocomplete="off" placeholder="ISBN">
                         </div>
                     </div>
-                </div>
+                </div>      
             </div>
             <div class="card-footer bg-white align-items-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
