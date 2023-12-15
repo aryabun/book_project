@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::prefix('books')->group(function(){
     Route::patch('/{book}', [BookController::class, 'update'])->name('books.update');
     Route::delete('/{book}', [BookController::class, 'destroy'])->name('books.destroy')->middleware('can:delete-book');
 });
+Route::delete('/{image}', [ImageController::class, 'img_destroy'])->name('image.destroy');
 Route::prefix('auth')->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('auth.authenticate');

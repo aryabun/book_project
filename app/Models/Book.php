@@ -17,4 +17,11 @@ class Book extends Model
     public function images(){
         return $this->hasMany(Image::class, 'book_id', 'id');
     }
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function (Book $book) {  
+            $book->images()->delete();
+        });
+    }
 }

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'create-book'],
             ['name' => 'edit-book'],
             ['name' => 'delete-book'],
-            ['name' => 'view-dashboard'],
+            ['name' => 'view-admindashboard'],
         ];
         foreach($roles as $role){
             Role::create($role);

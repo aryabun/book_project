@@ -20,7 +20,7 @@ class PermissionController extends Controller
         return redirect()->route('permission.index')->with('success', 'Permission successfully created!');
     }
     public function update(Request $request, Permission $permission){
-        $permission->create($request->all());
+        $permission->update($request->all());
         return redirect()->route('permission.index')->with('success', 'Permission successfully created!');
     }
     public function destroy(Permission $permission){

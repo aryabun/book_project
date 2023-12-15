@@ -14,14 +14,27 @@
         @foreach ($books as $book)
             <div class="col col-3 my-3">
                 <div class="card h-100">
-                    @if ($book->images)
-                        @foreach ($book->images as $item)
-                            <img class="card-img-top m-auto mt-2" src="{{ asset('storage/images/' . $item->name) }}"
-                                style="height: 50%; width: 50%;">
-                        @endforeach
-                    @else
+                    @if ($book->images->isEmpty())
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcSaTcPQHrUCsxJuUmSeCkG6KIKW5zp99pdw&usqp=CAU"
                             alt="" class="card-img-top m-auto mt-2" style="height: 50%; width: 50%;">
+                    @else
+                        <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                            <div class="carousel-inner">
+                                @foreach ($book->images as $key => $item)
+                                    <div class="carousel-item {{$key == 0 ? 'active' : '' }}">
+                                        <img class="card-img-top mt-2 m-auto" src="{{ asset('storage/images/' . $item->name) }}">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <a class="carousel-control-prev" href="#imageCarousel" role="button" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#imageCarousel" role="button" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     @endif
                     <div class="m-3 card-title">
                         <a href="{{ route('books.show', $book->id) }}">{{ $book->name }}</a>

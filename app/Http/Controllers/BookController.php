@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -21,7 +23,7 @@ class BookController extends Controller
     }
     public function index()
     {
-        $books = $this->book->paginate(10);
+        $books = $this->book->orderBy('id', 'ASC')->paginate(10);
 
         return view('books.index', compact('books'))->with('images');
     }
@@ -71,14 +73,23 @@ class BookController extends Controller
             'author' => 'required',
             'isbn' => 'required',
         ]);
+        
+        $excluded = $book->images->filter(function ($item) {
+            return !empty($item['id']);
+        });
+        $book->images()->whereNotIn('id', $excluded->pluck('id'))->delete();
         $images = [];
-        if ($request->has('image')) {
-            foreach ($request->image as $image) {
-                $file_name = time() . '.' . $image->extension();
+        if ($request->images) {
+            foreach ($request->images as $key => $image) {
+                $file_name = rand(1, 1000) . '.' . $image->getClientOriginalExtension();
                 $image->storeAs('public/images', $file_name);
-                $images = $file_name;
+                $images[$key]['name'] =  $file_name;
+            }
+            foreach($images as $img){
+                $book->images()->createMany([$img]);
             }
         }
+
         $book->update([
             'name' => $request->name,
             'author' =>  $request->author,
@@ -89,6 +100,9 @@ class BookController extends Controller
     }
     public function destroy(Book $book)
     {
+        foreach($book->images as $item){
+            Storage::delete('public/images/' . $item->name);
+        }
         $book->delete();
 
         return redirect()->route('books.index');

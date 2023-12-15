@@ -15,18 +15,49 @@
         </div>
         }
     @endif
+    {{-- UPDATE BOOK FORM --}}
     <form action="{{ route('books.update', $book) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('patch')
+        <div class="d-flex flex-column border-bottom mb-3">
+            <div class="d-flex flex-row justify-content-end mb-3">
+                <button type="submit" class="btn btn-primary mx-3">Update</button>
+                <a href="{{ route('books.show', $book) }}">
+                    <button type="button" class="btn btn-danger">Cancel</button>
+                </a>
+            </div>
+        </div>
         <div class="row mb-3">
             <div class="col-7 border rounded">
-                <div class="d-flex flex-row h-100 m-3">
+                <div class="d-flex flex-column h-100 m-3">
                     <div class="d-flex flex-column">
                         <input type="file" accept=".jpg, .jpeg, .png" id="selectImage" name="images[]"
                             @error('images') is-invalid @enderror class="form-control" multiple>
                     </div>
-                    <div class="d-flex flex-column">
-                        <img id="preview" src="#" alt="your image" class="mt-3" />
+                    <div class="d-flex flex-row">
+                        <div class="col-3">
+                            @foreach ($book->images as $item)
+                                <div class="row m-auto border-bottom">
+                                    <div class="d-flex flex-row justify-content-end pt-2">
+                                        <a class="dropdown-item" type="button"
+                                            onclick="event.preventDefault(); document.getElementById('image{{ $item->id }}').submit();"><i
+                                                class="fa-solid fa-xmark"></i>
+                                        </a>
+                                    </div>
+                                    <img class="display" id="{{ $item->id }}"
+                                        src="{{ asset('storage/images/' . $item->name) }}">
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="d-flex flex-column" style="overflow: hidden; ">
+                            @if ($book->images->isEmpty())
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcSaTcPQHrUCsxJuUmSeCkG6KIKW5zp99pdw&usqp=CAU"
+                                    alt="">
+                            @else
+                                <img id="preview" src="{{ asset('storage/images/' . $book->images[0]->name) }}"
+                                    alt="your image" class="mt-3" />
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,21 +80,16 @@
             </div>
 
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-        <a href="{{ route('books.index') }}">
-            <button type="button" class="btn btn-primary">Cancel</button>
-        </a>
     </form>
+    {{-- IMAGE REMOVE --}}
+    @if (!$book->images->isEmpty())
+        @foreach ($book->images as $item)
+            <form id="image{{ $item->id }}" action="{{ route('image.destroy', $item->id) }}" method="POST"
+                style="display: none;">
+                @csrf
+                @method('delete')
+            </form>
+        @endforeach
+    @endif
+    {{-- END IMAGE REMOVE --}}
 @endsection
-@push('script')
-    <script>
-        selectImage.onchange = event => {
-            preview = document.getElementById('preview');
-            preview.style.display = 'block';
-            const [file] = selectImage.files
-            if (file) {
-                preview.src = URL.createObjectURL(file);
-            }
-        }
-    </script>
-@endpush
