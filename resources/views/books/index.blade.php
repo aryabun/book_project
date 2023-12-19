@@ -18,7 +18,7 @@
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcSaTcPQHrUCsxJuUmSeCkG6KIKW5zp99pdw&usqp=CAU"
                             alt="" class="card-img-top m-auto mt-2" style="height: 50%; width: 50%;">
                     @else
-                        <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                        <div id="imageCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
                             <div class="carousel-inner">
                                 @foreach ($book->images as $key => $item)
                                     <div class="carousel-item {{$key == 0 ? 'active' : '' }}">

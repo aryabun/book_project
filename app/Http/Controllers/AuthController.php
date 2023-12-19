@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\NewUserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -27,6 +29,10 @@ class AuthController extends Controller
         $data['password'] = Hash::make($request->password);
         $user = User::create($data);
         $user->assignRole($request->input('role'));
+        $admins = User::role('admin')->get();
+        foreach($admins as $admin){
+            Notification::send($admin, new NewUserNotification($user));
+        }
         return redirect()->route('books.index')->with('success', 'User created successfully!');
     }
     // Login view page
