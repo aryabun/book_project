@@ -65,20 +65,22 @@ Route::prefix('admin')->group(function(){
     Route::get('/setting', [UserController::class, 'index'])->name('users.index');
 });
 /* Route::prefix('/notification')->group(function(){
-    Route::get('/index', function(){
-
-    });
-    Route::get('/unread', function(){
-
-    });
-    Route::get('/read', function(){
-
+    Route::get('/index', function(User $user){
+        $user = User::find(1);
+        foreach ($user->unreadNotifications as $notification){
+            $notification->markAsRead();
+        }
+        return ;
     });
     Route::get('/markasread', function(){
-
+        $user = User::find(1);
+        $user->unreadNotifications()->update(['read_at' => now()]);
+        return ;
     });
     Route::get('/remove', function(){
-
+        $user = User::find(1);
+        $user->notifications()->delete();
+        return ;
     });
 
  }); */
