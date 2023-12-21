@@ -19,5 +19,9 @@
 <style>
     body {
         font-family: 'Inter', sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        width: 100%;
     }
 </style>

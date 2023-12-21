@@ -9,6 +9,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\BookRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,11 @@ Route::prefix('books')->name('books.')->group(function(){
     Route::get('/{book}/edit', [BookController::class, 'edit'])->name('edit')->middleware('can:edit-book');
     Route::patch('/{book}', [BookController::class, 'update'])->name('update');
     Route::delete('/{book}', [BookController::class, 'destroy'])->name('destroy')->middleware('can:delete-book');
+    Route::prefix('requests')->name('requests.')->group(function(){
+        Route::get('/', [BookRequest::class, 'index'])->name('books.index');
+        Route::get('/create', [BookRequest::class, 'create'])->name('create');
+        Route::post('/store', [BookRequest::class, 'store'])->name('store');
+    });
 });
 Route::delete('/{image}', [ImageController::class, 'img_destroy'])->name('image.destroy');
 Route::prefix('auth')->name('auth.')->group(function(){
@@ -58,4 +64,21 @@ Route::prefix('admin')->group(function(){
     });
     Route::get('/setting', [UserController::class, 'index'])->name('users.index');
 });
-Route::get('/dummy', [DummyController::class, 'index']);
+/* Route::prefix('/notification')->group(function(){
+    Route::get('/index', function(){
+
+    });
+    Route::get('/unread', function(){
+
+    });
+    Route::get('/read', function(){
+
+    });
+    Route::get('/markasread', function(){
+
+    });
+    Route::get('/remove', function(){
+
+    });
+
+ }); */
